@@ -26,6 +26,6 @@ spec:
       containers:
       - image: nginx:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.imagePullPolicy }}
-        name: nginx-{{ .Values.image.tag }}
+        name: nginx-alpine
         resources:
 {{ toYaml .Values.resources | indent 12 }}
