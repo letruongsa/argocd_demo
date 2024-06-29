@@ -3,5 +3,5 @@ data:
   {{ .Values.configmap.data }}
 kind: ConfigMap
 metadata:
-  name: nginx-{{ .Values.image.tag }}
+  name: nginx-alpine
   namespace: {{ .Values.namespace.name }}
