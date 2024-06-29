@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+    tag: {{ .Values.image.tag }}
+  name: nginx-{{ .Values.image.tag }}
+  namespace: {{ .Values.namespace.name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: nginx
+      tag: {{ .Values.image.tag }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nginx
+        tag: {{ .Values.image.tag }}
+    spec:
+      containers:
+      - image: nginx:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.imagePullPolicy }}
+        name: nginx-{{ .Values.image.tag }}
+        resources:
+{{ toYaml .Values.resources | indent 12 }}
